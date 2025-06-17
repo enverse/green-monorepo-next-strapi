@@ -1,0 +1,63 @@
+services:
+  green-strapi-production:
+    container_name: green-strapi-production
+    image: registry.gitlab.com/enverse-labs/green/green-cms:production
+    build:
+      context: ../../
+      dockerfile: docker/Dockerfile.Deploy
+    volumes:
+      - public_volume-production:/opt/app/public
+    restart: unless-stopped
+    networks:
+      - nginx_proxy_network
+    environment:
+      DATABASE_HOST: green-cms-db-production
+      DATABASE_PORT: 5432
+      DATABASE_CLIENT: postgres
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      APP_KEYS: ${APP_KEYS}
+      VIRTUAL_HOST: cms.ipl.uk.com
+      PORT: 1338
+      VIRTUAL_PORT: 1338
+      LETSENCRYPT_HOST: cms.ipl.uk.com
+    ports:
+      - "1338:1338"
+    depends_on:
+      green-cms-db-production:
+        condition: service_healthy
+
+  green-cms-db-production:
+    image: postgres:12.0-alpine
+    container_name: green-cms-db-production
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    restart: unless-stopped
+    networks:
+      - nginx_proxy_network
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - green-cms-data:/var/lib/postgresql/data/
+    ports:
+      - "5437:5432"
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  green-cms-data:
+  public_volume-production:
+networks:
+  nginx_proxy_network:
+    external: true

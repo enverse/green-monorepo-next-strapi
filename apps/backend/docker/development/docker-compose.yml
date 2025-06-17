@@ -1,0 +1,55 @@
+services:
+  green-strapi-development:
+    container_name: green-strapi-development
+    build:
+      context: ../../
+      dockerfile: docker/development/Dockerfile
+    volumes:
+      # - ../../public:/opt/app/public
+      # - ../../src:/opt/app/src
+      - ../../src:/opt/app/src
+      - ../../public:/opt/app/public
+      - ../../config:/opt/app/config
+      - ../../package.json:/opt/app/package.json
+      - ../../pnpm-lock.yaml:/opt/app/pnpm-lock.yaml
+    restart: unless-stopped
+    environment:
+      DATABASE_HOST: green-cms-db-development
+      DATABASE_PORT: 5432
+      DATABASE_CLIENT: postgres
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      APP_KEYS: ${APP_KEYS}
+    ports:
+      - "1337:1337"
+    depends_on:
+      green-cms-db-development:
+        condition: service_healthy
+
+  green-cms-db-development:
+    image: postgres:12.0-alpine
+    container_name: green-cms-db-development
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - green-cms-data:/var/lib/postgresql/data/
+    ports:
+      - "5435:5432"
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  green-cms-data:
