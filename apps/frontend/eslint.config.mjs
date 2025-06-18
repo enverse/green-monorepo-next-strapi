@@ -13,6 +13,7 @@ import { FlatCompat } from "@eslint/eslintrc";
 import eslint from "@eslint/js";
 import reactQuery from "@tanstack/eslint-plugin-query";
 import vitest from "@vitest/eslint-plugin";
+import eslintComments from "eslint-plugin-eslint-comments";
 import importPlugin from "eslint-plugin-import";
 import playwright from "eslint-plugin-playwright";
 import preferArrow from "eslint-plugin-prefer-arrow";
@@ -22,14 +23,11 @@ import unicorn from "eslint-plugin-unicorn";
 import unusedImports from "eslint-plugin-unused-imports";
 import tseslint from "typescript-eslint";
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
-
-
 
 export default tseslint.config([
   {
@@ -71,9 +69,9 @@ export default tseslint.config([
        */
       ...compat.extends(
         // Next.js hasn't released a compatible config yet
+        "plugin:@next/next/recommended",
         "next/core-web-vitals",
         "next/typescript",
-
       ),
     ],
     languageOptions: {
@@ -91,6 +89,7 @@ export default tseslint.config([
       "prefer-arrow": preferArrow,
       unicorn,
       "react-compiler": reactCompiler,
+      "eslint-comments": eslintComments,
     },
 
     /**
@@ -118,13 +117,6 @@ export default tseslint.config([
       "@typescript-eslint/unbound-method": "off",
       "react-compiler/react-compiler": "error",
       "@typescript-eslint/require-await": "off",
-      "headers/header-format": [
-        "error",
-        {
-          source: "string",
-          content: HEADER_CONTENT,
-        },
-      ],
       curly: ["error", "all"],
       eqeqeq: "error",
       "eslint-comments/no-unused-disable": "error",
@@ -193,7 +185,6 @@ export default tseslint.config([
           varsIgnorePattern: "^_",
         },
       ],
-      "custom/no-number-isnan": "error",
       "@next/next/no-html-link-for-pages": "off",
       "react/function-component-definition": [
         "error",
