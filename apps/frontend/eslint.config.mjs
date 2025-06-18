@@ -18,7 +18,6 @@ import importPlugin from "eslint-plugin-import";
 import playwright from "eslint-plugin-playwright";
 import preferArrow from "eslint-plugin-prefer-arrow";
 import reactCompiler from "eslint-plugin-react-compiler";
-import tailwindcss from "eslint-plugin-tailwindcss";
 import unicorn from "eslint-plugin-unicorn";
 import unusedImports from "eslint-plugin-unused-imports";
 import tseslint from "typescript-eslint";
@@ -62,7 +61,6 @@ export default tseslint.config([
       tseslint.configs.recommendedTypeChecked,
       importPlugin.flatConfigs.typescript,
       ...reactQuery.configs["flat/recommended"],
-      ...tailwindcss.configs["flat/recommended"],
 
       /**
        * Legacy configs, need the compat.extends() syntax
@@ -166,9 +164,7 @@ export default tseslint.config([
       ],
       "react/jsx-no-useless-fragment": "error",
       "react/jsx-curly-brace-presence": "error",
-      "tailwindcss/classnames-order": "off",
-      "tailwindcss/enforces-shorthand": "error",
-      "tailwindcss/no-custom-classname": "off",
+
       "unicorn/filename-case": [
         "error",
         {

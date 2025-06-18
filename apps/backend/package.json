@@ -7,7 +7,7 @@
     "build": "strapi build",
     "console": "strapi console",
     "deploy": "strapi deploy",
-    "dev": "docker compose --env-file .env -f docker/development/docker-compose.yml up --build --remove-orphans",
+    "dev": "docker compose --env-file .env -f docker/development/docker-compose.yml up --remove-orphans",
     "develop": "strapi develop",
     "seed:example": "node ./scripts/seed.js",
     "start": "strapi start",
