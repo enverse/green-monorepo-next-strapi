@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -9,17 +9,25 @@ RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev l
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /opt/
+WORKDIR /opt
 COPY package.json pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY apps/backend/package.json ./apps/backend/package.json
+COPY apps/backend/tsconfig.json ./apps/backend/tsconfig.json
+
+
 RUN pnpm install --frozen-lockfile
 
-WORKDIR /opt/app
-COPY . .
 
-RUN chown -R node:node /opt/app
+COPY apps/backend /opt/apps/backend
 
-RUN mkdir -p node_modules/.strapi && chown -R node:node node_modules/.strapi
 
+# Now copy the actual source code
+# COPY packages/types /opt/packages/types
+
+RUN chown -R node:node /opt/
+
+WORKDIR /opt/apps/backend
 USER node
 
 RUN ["pnpm", "build"]

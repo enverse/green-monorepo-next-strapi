@@ -2,16 +2,13 @@ services:
   green-strapi-development:
     container_name: green-strapi-development
     build:
-      context: ../../
-      dockerfile: docker/development/Dockerfile
+      context: ../../../../
+      dockerfile: apps/backend/docker/development/Dockerfile.Dev
     volumes:
-      # - ../../public:/opt/app/public
-      # - ../../src:/opt/app/src
-      - ../../src:/opt/app/src
-      - ../../public:/opt/app/public
-      - ../../config:/opt/app/config
-      - ../../package.json:/opt/app/package.json
-      - ../../pnpm-lock.yaml:/opt/app/pnpm-lock.yaml
+      - ../../../../apps/backend/src:/opt/apps/backend/src
+      - ../../../../apps/backend/public:/opt/apps/backend/public
+      - ../../../../apps/backend/config:/opt/apps/backend/config
+
     restart: unless-stopped
     environment:
       DATABASE_HOST: green-cms-db-development
@@ -40,7 +37,7 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
-      - green-cms-data:/var/lib/postgresql/data/
+      - green-cms-data-local:/var/lib/postgresql/data/
     ports:
       - "5435:5432"
     healthcheck:
@@ -52,4 +49,4 @@ services:
       start_period: 10s
 
 volumes:
-  green-cms-data:
+  green-cms-data-local:
