@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 
 const BACKEND_TYPES_DIR = path.join(__dirname, "../types/generated");
-const COMMON_TYPES_DIR = path.join(__dirname, "../../../packages/types");
+const COMMON_TYPES_DIR = path.join(__dirname, "../../../packages/types/strapi");
 
 async function copyTypes() {
   console.log("COMMON_TYPES_DIR ----------------------", COMMON_TYPES_DIR);

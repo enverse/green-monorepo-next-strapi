@@ -95,7 +95,13 @@ export default tseslint.config([
      */
     rules: {
       "@typescript-eslint/consistent-type-exports": "error",
-      "@typescript-eslint/consistent-type-imports": "error",
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          fixStyle: "inline-type-imports",
+        },
+      ],
+
       "@typescript-eslint/no-import-type-side-effects": "error",
       "@typescript-eslint/no-floating-promises": "off",
       "@typescript-eslint/no-shadow": "error",

@@ -15,13 +15,6 @@
     "dev": {
       "cache": false,
       "persistent": true
-    },
-    "generate-types": {
-      "dependsOn": ["^generate-types"],
-      "outputs": [
-        "apps/backend/types/generated/**/*.d.ts",
-        "packages/types/*.d.ts"
-      ]
     }
   }
 }

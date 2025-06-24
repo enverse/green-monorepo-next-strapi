@@ -69,9 +69,6 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.2.3
         version: 1.2.3(@types/react@19.1.8)(react@19.1.0)
-      '@repo/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -112,6 +109,12 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.4.2
         version: 4.4.2(prettier@3.5.3)
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.10
@@ -185,6 +188,8 @@ importers:
       rimraf:
         specifier: ^5.0.0
         version: 5.0.10
+
+  packages/typescript-config: {}
 
 packages:
 
