@@ -11,7 +11,10 @@
     "check-types": "turbo run check-types",
     "generate-types": "pnpm --filter @repo/backend run generate-types",
     "generate-env": "pnpm --filter @repo/backend run generate-env",
-    "reset-db": "pnpm --filter @repo/backend run reset-db"
+    "reset-db": "pnpm --filter @repo/backend run reset-db",
+    "test:e2e": "pnpm --filter @repo/frontend test:e2e",
+    "test:e2e:ui": "pnpm --filter @repo/frontend test:e2e:ui",
+    "playwright:install": "pnpm --filter @repo/frontend playwright:install"
   },
   "keywords": [],
   "author": "",

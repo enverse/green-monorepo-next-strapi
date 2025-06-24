@@ -82,3 +82,14 @@ build/
 
 *storybook.log
 storybook-static
+
+# Playwright
+playwright-report/
+playwright/.cache/
+test-results/
+
+# Storybook
+storybook-static/
+.storybook/
+
+

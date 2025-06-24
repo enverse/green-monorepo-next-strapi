@@ -4,10 +4,6 @@ import type { SharedMedia } from "@repo/types/strapi/components";
 
 import "../styles/globals.css";
 
-export type Toto = {
-  id: number;
-};
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,7 +26,7 @@ const RootLayout = ({
   data: SharedMedia;
 }>) => {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
