@@ -7,6 +7,7 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
+    "dev:frontend": "pnpm --filter @repo/frontend dev",
     "check-types": "turbo run check-types",
     "generate-types": "pnpm --filter @repo/backend run generate-types",
     "generate-env": "pnpm --filter @repo/backend run generate-env",
