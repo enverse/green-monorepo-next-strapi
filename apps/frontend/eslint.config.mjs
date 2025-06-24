@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from "eslint-plugin-storybook";
+
 /*
  *  Copyright (C) Pivot 2024 - All Rights Reserved.
  *  This source code is protected under international copyright law. All rights
@@ -339,4 +342,4 @@ export default tseslint.config([
       "no-console": "off",
     },
   },
-]);
+], storybook.configs["flat/recommended"]);
